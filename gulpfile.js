@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     browserSync = require('browser-sync'),
+    reload = browserSync.reload,
     concat = require('gulp-concat'),
     ngConcat = require('gulp-ngconcat'),
     destination = './dist';
@@ -13,7 +14,7 @@ var gulp = require('gulp'),
             gulp.src('./app/**/*.css')
                 .pipe(concat('bundle.css'))
                 .pipe(gulp.dest(destination))
-        })
+        });
 
         gulp.task('default', ['js','css']);
 
@@ -27,8 +28,8 @@ var gulp = require('gulp'),
 
             gulp.watch("app/**/*.js", ['js']);
             gulp.watch("app/**/*.css", ['css']);
-            gulp.watch("./index.html", {cwd: './'}, browserSync.reload);
-            gulp.watch("./app/**/*.*", {cwd: './'}, browserSync.reload);
+            gulp.watch("./index.html", {cwd: './'}, reload);
+            gulp.watch("./app/**/*.*", {cwd: './'}, reload);
 
         });
 
