@@ -9,4 +9,7 @@ angular
         }
         $scope.propertyInfo = propertyPageService.getPropertyData();
         console.log($scope.propertyInfo);
+        $scope.addToFavorites = function (propertyInfo) {
+
+        }
     }
