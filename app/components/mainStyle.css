@@ -1,0 +1,12 @@
+body{
+    background-color: rgba(210,210,219,0.89);
+}
+.propertyHeader{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+.propertyBody{
+    padding: 20px;
+}

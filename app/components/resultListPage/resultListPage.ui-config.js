@@ -8,7 +8,7 @@ angular
                     templateUrl:'/app/components/resultListPage/resultListPage.html',
                     controller: 'resultListPageCtrl',
                     params:{
-                        item: null
+                        userInput: null
                     }
                 })
         }
