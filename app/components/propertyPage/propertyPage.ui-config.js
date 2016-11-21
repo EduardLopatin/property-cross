@@ -4,8 +4,7 @@ angular
         $stateProvider.
             state('propertyPage',{
                 url: '/property-page',
-                templateUrl: '/app/components/propertyPage/propertyPage.html',
-                controller: 'propertyPageCtrl',
+                template: '<property-page></property-page>',
                 params:{propertyInfo: null}
         })
     })

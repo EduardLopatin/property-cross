@@ -4,6 +4,6 @@ angular
         $stateProvider
             .state('searchPage',{
                 url:'/search-page',
-                templateUrl: '/app/components/searchPage/searchPage.html'
+                template: '<search-page></search-page>'
             })
     });

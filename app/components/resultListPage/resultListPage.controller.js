@@ -13,10 +13,6 @@ angular
             loadPage($scope.pageCount);
         };
 
-        $scope.showPropertyInfo = function (item) {
-            $state.go('propertyPage', {propertyInfo: item})
-        } ;
-
         function loadPage(pageNumber) {
             if($stateParams.userInput != null){
                 apiSearchService.setUserInput($stateParams.userInput);

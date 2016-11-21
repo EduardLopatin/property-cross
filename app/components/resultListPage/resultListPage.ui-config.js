@@ -5,8 +5,7 @@ angular
             $stateProvider
                 .state('resultListPage',{
                     url:'/result-list-page',
-                    templateUrl:'/app/components/resultListPage/resultListPage.html',
-                    controller: 'resultListPageCtrl',
+                    template:'<result-list></result-list>',
                     params:{
                         userInput: null
                     }
