@@ -19,6 +19,6 @@
     <button class="btn btn-default" ng-click="getUserInput(searchInput)">Go</button>
     <button class="btn btn-default">My location</button>
 </div>
-<ul class="list-group col-lg-11 ">
-    <li class="list-group-item" ng-repeat="item in searchHistory" ng-click="getUserInput(item.input)">{{item.input + ' (' + item.total_results + ')'}}</li>
+<ul class="list-group col-lg-11">
+    <li class="list-group-item" ng-repeat="item in searchHistory | limitTo: 10" ng-click="getUserInput(item.input)">{{item.input + ' (' + item.total_results + ')'}}</li>
 </ul>

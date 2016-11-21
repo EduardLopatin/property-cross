@@ -1,8 +1,9 @@
-<div style="height: 50px"></div>
+<div style="height: 50px">
+</div>
 <div ng-repeat="item in propsList track by $index">
     <list-element item="item"></list-element>
 </div>
 
 <div class="col-lg-12 text-center">
-    <a ng-click="loadMore()"><h3>Load more</h3></a>
+    <h2>{{statusInfo}}</h2> <a ng-click="loadMore()" ng-show="checkQuantity"><h3>Load more</h3></a>
 </div>
