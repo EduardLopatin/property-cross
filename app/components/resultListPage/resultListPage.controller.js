@@ -2,7 +2,7 @@ angular
     .module('app')
     .controller('resultListPageCtrl', resultListPageCtrl);
 
-    function resultListPageCtrl($scope, $state, $stateParams, apiSearchService) {
+    function resultListPageCtrl($scope, $state, $stateParams, apiSearchService, searchHistoryService) {
         $scope.pageCount = 1;
         $scope.propsList = [];
 
@@ -17,9 +17,10 @@ angular
             if($stateParams.userInput != null){
                 apiSearchService.setUserInput($stateParams.userInput);
             }
-            apiSearchService.getPropsList(apiSearchService.getUserInput(), pageNumber)
+            apiSearchService.getResponseFromApi(apiSearchService.getUserInput(), pageNumber)
                 .then(function (resp) {
-                    $scope.propsList = $scope.propsList.concat(resp);
+                    $scope.propsList = $scope.propsList.concat(resp.listings);
+                    searchHistoryService.setInput(apiSearchService.getUserInput(), resp.total_results)
                 });
         }
     }

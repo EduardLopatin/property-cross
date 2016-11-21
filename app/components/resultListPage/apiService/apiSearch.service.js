@@ -10,11 +10,11 @@ function apiSearchService($http, $q) {
    function getUserInput() {
        return JSON.parse(sessionStorage.userInput);
    }
-   var getPropsList = function(input, pageNumber) {
+   var getResponseFromApi = function(input, pageNumber) {
        var deferred = $q.defer();
        $http.get('http://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=' + pageNumber + '&place_name=' + input).then(
           function (resp) {
-             deferred.resolve(resp.data.response.listings)
+             deferred.resolve(resp.data.response)
           }
        );
 
@@ -24,6 +24,6 @@ function apiSearchService($http, $q) {
     return {
         setUserInput: setUserInput,
         getUserInput: getUserInput,
-        getPropsList: getPropsList
+        getResponseFromApi: getResponseFromApi
     }
 }
