@@ -17,10 +17,16 @@ function favoritesService() {
 
     function putItemInLocalStorage(item) {
         var favoritesList = getFavoritesList();
-        favoritesList.push(item);
+        favoritesList.unshift(item);
         localStorage.favorites = JSON.stringify(favoritesList);
     }
-    
+    var removePropertyData = function (propertyInfo) {
+        var list = getFavoritesList();
+        var filteredList = list.filter(function (item) {
+            return item.img_url != propertyInfo.img_url
+        });
+        setList(filteredList);
+    };
     
     function getFavoritesList() {
         if(!localStorage.favorites){
@@ -51,6 +57,7 @@ function checkFoundItem(variable) {
         setProperty: setProperty,
         getFavoritesList: getFavoritesList,
         checkProperty: checkProperty,
-        setList: setList
+        setList: setList,
+        removePropertyData: removePropertyData
     }
 }

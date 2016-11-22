@@ -5,8 +5,41 @@ body{
     padding: 20px;
     display: flex;
     justify-content: space-between;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 .propertyBody{
     padding: 20px;
 }
+.mainHeader{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+}
+.logo{
+ cursor: pointer;
+}
+.logo:hover{
+    color: gray;
+}
+.activeState{
+    color: gray;
+}
+.activeState:disabled{
+    background-color: red;
+}
+.menuItem{
+    cursor: pointer;
+}
+span.menuItem{
+    margin-right: 10px;
+}
+.loadMore{
+    cursor: pointer;
+    color: darkblue;
+
+}
+.loadMore:hover{
+    color: gray;
+    text-decoration: none;
+ }

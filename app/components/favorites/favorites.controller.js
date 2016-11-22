@@ -4,5 +4,12 @@ angular
 
 function favoritesCtrl($scope, favoritesService) {
 $scope.list = favoritesService.getFavoritesList();
-    console.log($scope.list);
+
+$scope.checkList = function () {
+    if($scope.list.length === 0){
+        return true
+    }else {
+        return false
+    }
+}
 }

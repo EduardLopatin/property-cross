@@ -17,7 +17,6 @@ function apiSearchService($http, $q) {
              deferred.resolve(resp.data.response)
           }
        );
-
        return deferred.promise
    };
 

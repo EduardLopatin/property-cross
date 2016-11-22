@@ -23,7 +23,10 @@ angular
 
         }
         function getSearchHistoryList() {
-            return JSON.parse(localStorage.searchHistory)
+            if(localStorage.searchHistory){
+                return JSON.parse(localStorage.searchHistory)
+            }
+
         }
         return {
             setInput: setInput,
