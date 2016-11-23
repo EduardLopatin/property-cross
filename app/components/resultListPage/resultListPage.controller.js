@@ -2,46 +2,45 @@ angular
     .module('app')
     .controller('resultListPageCtrl', resultListPageCtrl);
 
-    function resultListPageCtrl($scope, $stateParams, apiSearchService, searchHistoryService) {
-        $scope.pageCount = 1;
+    function resultListPageCtrl($scope, $state, $stateParams, apiSearchService, searchHistoryService) {
+        $scope.pageCount = 0;
         $scope.propsList = [];
-        $scope.viewedResultsCount = 0;
-        $scope.showError = false;
-        $scope.MainSpinner = true;
+        $scope.userInput = '';
+        $scope.statusInfo = '';
+        $scope.totalResults = 0;
+        $scope.fullResponse = null;
 
-        loadPage($scope.pageCount);
+        saveUserInput();
 
-        $scope.loadMore = function () {
-            $scope.LoadMoreSpinner = true;
+        $scope.loadPage = function () {
             $scope.pageCount++;
-            loadPage($scope.pageCount);
+            apiSearchService
+                .getResponseFromApi($scope.userInput, $scope.pageCount)
+                .then(function (resp) {
+                    $scope.totalResults = resp.total_results;
+                    $scope.propsList = $scope.propsList.concat(resp.listings);
+                    searchHistoryService.setInput($scope.userInput, $scope.totalResults);
+                    setStatusInfo();
+                });
+
         };
 
-        function loadPage(pageNumber) {
-            if ($stateParams.userInput != null) {
-                apiSearchService.setUserInput($stateParams.userInput);
-            }
-            apiSearchService.getResponseFromApi(apiSearchService.getUserInput(), pageNumber)
-                .then(function (resp) {
-                    $scope.propsList = $scope.propsList.concat(resp.listings);
-                    $scope.showError = checkResponse();
-                    searchHistoryService.setInput(apiSearchService.getUserInput(), resp.total_results);
-                    setViewInfo(resp);
-                    $scope.MainSpinner = false;
-                    $scope.LoadMoreSpinner = false;
-                })
+        if($scope.userInput){
+            $scope.loadPage();
         }
 
-        function checkResponse() {
-            if ($scope.propsList.length === 0) {
-                return true
-            } else {
-                return false
+
+            function setStatusInfo() {
+                $scope.statusInfo = $scope.propsList.length + ' matches of ' + $scope.totalResults
             }
-        }
-        function setViewInfo(response) {
-            $scope.viewedResultsCount += response.listings.length;
-            $scope.statusInfo = $scope.viewedResultsCount + ' matches of ' + response.total_results;
-            $scope.checkQuantity = response.total_results > 20;
-        }
+            function saveUserInput() {
+                if($stateParams.userInput != null){
+                    $scope.userInput = $stateParams.userInput;
+                    apiSearchService.setUserInput($stateParams.userInput);
+                }else if(sessionStorage.userInput) {
+                    $scope.userInput = apiSearchService.getUserInput();
+                }else {
+                    $state.go('searchPage')
+                }
+            }
     }

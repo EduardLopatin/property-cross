@@ -30,6 +30,10 @@ body{
 }
 .menuItem{
     cursor: pointer;
+
+}
+div.menuItem:hover{
+    background-color: #e6e6e6;
 }
 span.menuItem{
     margin-right: 10px;

@@ -8,7 +8,7 @@ function apiSearchService($http, $q) {
         sessionStorage.userInput = input;
    }
    function getUserInput() {
-       return JSON.parse(sessionStorage.userInput);
+           return JSON.parse(sessionStorage.userInput);
    }
    var getResponseFromApi = function(input, pageNumber) {
        var deferred = $q.defer();
