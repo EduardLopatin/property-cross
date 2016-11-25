@@ -1,0 +1,17 @@
+<div class="text-center">
+    <img  src="/app/src/img/ring-alt.gif" ng-hide="hideSpinner">
+</div>
+
+<div ng-repeat="item in propsList track by $index">
+    <list-element item="item"></list-element>
+</div>
+
+<div ng-show="showLoadMore"  class="text-center col-lg-12 loadMoreBlock">
+    <h3>{{infoBar}}</h3>
+    <h3 ng-hide="showLoadingMessage" ng-click="loadPage(); showLoading()" class="text-link">Load more...</h3>
+    <h3 ng-show="showLoadingMessage">Loading...</h3>
+</div>
+<div class="text-center col-lg-12" ng-show="errorMessage">
+    <h2>{{errorMessage}}</h2>
+    <a ng-if="showLoadMore" ui-sref="searchPage" class="text-link">go back</a>
+</div>

@@ -1,0 +1,52 @@
+body{
+    background-color: rgba(210,210,219,0.89);
+}
+.propertyHeader{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.propertyBody{
+    padding: 20px;
+}
+.mainHeader{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+}
+.logo{
+ cursor: pointer;
+    text-indent: 20px;
+}
+.logo:hover{
+    color: gray;
+}
+.activeState{
+    color: gray;
+}
+.activeState:disabled{
+    background-color: red;
+}
+.menuItem{
+    cursor: pointer;
+}
+div.menuItem:hover{
+    background-color: #e6e6e6;
+}
+span.menuItem{
+    margin-right: 10px;
+}
+.loadMoreBlock {
+    margin-bottom: 30px;
+}
+.text-link{
+    cursor: pointer;
+    color: darkblue;
+
+}
+.text-link:hover{
+    color: gray;
+    text-decoration: none;
+ }
