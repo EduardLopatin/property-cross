@@ -29,29 +29,14 @@ function favoritesService() {
     };
     
     function getFavoritesList() {
-        if(!localStorage.favorites){
-            localStorage.favorites = '[]';
-        }
-        return JSON.parse(localStorage.favorites)
+        return localStorage.favorites && JSON.parse(localStorage.favorites) || '[]'
     }
     
     var checkProperty = function(property) {
-           var isFound = getFavoritesList().find(function (item) {
-               if(property.img_url === item.img_url){
-                   return item
-               }
+        return getFavoritesList().find(function (item) {
+               return property.img_url === item.img_url
            });
-
-           return checkFoundItem(isFound);
     };
-function checkFoundItem(variable) {
-    if(typeof variable === "object"){
-        return true
-    }
-    else {
-        return false
-    }
-}
 
     return {
         setProperty: setProperty,

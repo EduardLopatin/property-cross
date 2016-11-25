@@ -2,60 +2,57 @@ angular
     .module('app')
     .controller('resultListPageCtrl', resultListPageCtrl);
 
-    function resultListPageCtrl($scope, $state, $stateParams, apiSearchService, searchHistoryService) {
-        $scope.pageCount = 0;
-        $scope.propsList = [];
-        $scope.userInput = '';
-        $scope.statusInfo = '';
-        $scope.totalResults = 0;
-        $scope.fullResponse = null;
+function resultListPageCtrl($scope, $state, $stateParams, apiSearchService, searchHistoryService) {
+    $scope.pageCount = 0;
+    $scope.propsList = [];
+    $scope.userInput = '';
+    $scope.totalResults = 0;
 
-        saveUserInput();
+    saveUserInput();
 
-        $scope.loadPage = function () {
-            $scope.pageCount++;
-            apiSearchService
-                .getResponseFromApi($scope.userInput, $scope.pageCount)
-                .then(function (resp) {
-                    console.log(resp);
-                    $scope.totalResults = resp.total_results;
-                       $scope.propsList = $scope.propsList.concat(resp.listings);
-                       searchHistoryService.setInput($scope.userInput, $scope.totalResults);
-                       setViewInfo(resp);
-                }).catch(function () {
-                $scope.noConnection = true
-            })
+    $scope.loadPage = function () {
+        $scope.pageCount++;
+        apiSearchService
+            .getResponseFromApi($scope.userInput, $scope.pageCount)
+            .then(function (resp) {
+                    setViews(resp);
+                    if(!$scope.propsList.length) throw  new UserException("There were no properties found for the given location.");
+                    searchHistoryService.setInput($scope.userInput, resp.total_results);
+            }, function () {
+                $scope.errorMessage = 'An error occurred while searching. Please check your network connection and try again.';
+                $scope.showLoadMore = false;
+                }
+            )
+    };
 
-        };
-        $scope.showLoading = function () {
-           $scope.showLoadingMessage = true
-        };
+    function setViews(resp) {
+        $scope.propsList = $scope.propsList.concat(resp.listings);
+        $scope.totalResults = resp.total_results;
+        $scope.showLoadMore = $scope.propsList.length < $scope.totalResults;
+        $scope.infoBar = $scope.propsList.length + ' matches of ' + $scope.totalResults;
+        $scope.hideSpinner = true;
+        $scope.showLoadingMessage = false;
+    }
 
-        if($scope.userInput){
-            $scope.loadPage();
-        }
+    !!$scope.userInput && $scope.loadPage(); //here we load page in first time
 
-        function setViewInfo(response) {
-            $scope.statusInfo = $scope.propsList.length + ' matches of ' + $scope.totalResults;
-            $scope.checkQuantity = $scope.propsList.length <= $scope.totalResults;
-            $scope.noResults = checkResponseCode(response.application_response_code);
-            $scope.showLoadingMessage = false;
-        }
+    $scope.showLoading = function () {
+        $scope.showLoadingMessage = true
+    };
 
-        function checkResponseCode(code) {
-            if(code === '100' || code === '101' || code === '110'){
-                return !$scope.totalResults;
-            }
-
-        }
-        function saveUserInput() {
-            if($stateParams.userInput != null){
-                $scope.userInput = $stateParams.userInput;
-                apiSearchService.setUserInput($stateParams.userInput);
-            }else if(sessionStorage.userInput) {
-                $scope.userInput = apiSearchService.getUserInput();
-            }else {
-                $state.go('searchPage')
-            }
+    function saveUserInput() {
+        if($stateParams.userInput != null){
+            $scope.userInput = $stateParams.userInput;
+            apiSearchService.setUserInput($stateParams.userInput);
+        }else if(sessionStorage.userInput) {
+            $scope.userInput = apiSearchService.getUserInput();
+        }else {
+            $state.go('searchPage')
         }
     }
+    function UserException(message) {
+        $scope.errorMessage = message;
+        $scope.hideSpinner = true;
+        $scope.showLoadingMessage = false;
+    }
+}

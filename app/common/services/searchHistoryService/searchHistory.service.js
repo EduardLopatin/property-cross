@@ -16,17 +16,12 @@ angular
             localStorage.searchHistory = JSON.stringify(searchHistoryList);
         };
         function checkList(checkingValue) {
-            var list = getSearchHistoryList();
-            return list.filter(function (item) {
+            return getSearchHistoryList().filter(function (item) {
                 return item.input != checkingValue
             })
-
         }
         function getSearchHistoryList() {
-            if(localStorage.searchHistory){
-                return JSON.parse(localStorage.searchHistory)
-            }
-
+                return !!localStorage.searchHistory && JSON.parse(localStorage.searchHistory)
         }
         return {
             setInput: setInput,

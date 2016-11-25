@@ -31,7 +31,6 @@ body{
 }
 .menuItem{
     cursor: pointer;
-
 }
 div.menuItem:hover{
     background-color: #e6e6e6;
@@ -39,12 +38,15 @@ div.menuItem:hover{
 span.menuItem{
     margin-right: 10px;
 }
-.loadMore{
+.loadMoreBlock {
+    margin-bottom: 30px;
+}
+.text-link{
     cursor: pointer;
     color: darkblue;
 
 }
-.loadMore:hover{
+.text-link:hover{
     color: gray;
     text-decoration: none;
  }
