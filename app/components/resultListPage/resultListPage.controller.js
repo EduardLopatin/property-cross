@@ -19,12 +19,12 @@ angular
                 .then(function (resp) {
                     console.log(resp);
                     $scope.totalResults = resp.total_results;
-                    $scope.propsList = $scope.propsList.concat(resp.listings);
-
-                    searchHistoryService.setInput($scope.userInput, $scope.totalResults);
-
-                    setViewInfo(resp);
-                })
+                       $scope.propsList = $scope.propsList.concat(resp.listings);
+                       searchHistoryService.setInput($scope.userInput, $scope.totalResults);
+                       setViewInfo(resp);
+                }).catch(function () {
+                $scope.noConnection = true
+            })
 
         };
         $scope.showLoading = function () {
@@ -38,7 +38,7 @@ angular
         function setViewInfo(response) {
             $scope.statusInfo = $scope.propsList.length + ' matches of ' + $scope.totalResults;
             $scope.checkQuantity = $scope.propsList.length <= $scope.totalResults;
-            $scope.showError = checkResponseCode(response.application_response_code);
+            $scope.noResults = checkResponseCode(response.application_response_code);
             $scope.showLoadingMessage = false;
         }
 
